@@ -45,7 +45,7 @@ jobs:
         run: |
           sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends imagemagick
           n=${{ steps.count.outputs.views }}
-          digits=$(printf "%07d" $n)
+          digits=$(printf "%d" $n)
           files=$(echo $digits | sed 's/\(.\)/theme\/\1.png /g')
           convert $files -resize 80x80 +append counter.png
 
