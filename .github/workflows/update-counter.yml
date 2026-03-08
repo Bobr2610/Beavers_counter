@@ -1,6 +1,11 @@
 name: Update Visitor Counter
 
 on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - counter.svg
+      - counter.png
   schedule:
     - cron: '0 * * * *'  # Запуск каждый час
   workflow_dispatch:     # Позволяет запустить вручную
@@ -29,10 +34,15 @@ jobs:
           VIEWS=${{ steps.traffic.outputs.views }}
           sed -i "s/{{COUNT}}/$VIEWS/g" counter.svg
 
+      - name: Convert SVG to PNG
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y imagemagick
+          convert -density 192 -background none counter.svg counter.png
+
       - name: Commit and Push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add counter.svg
-          git diff --staged --quiet || git commit -m "Update visitor count"
+          git add counter.svg counter.png
+          git diff --staged --quiet || git commit -m "Update visitor count: ${{ steps.traffic.outputs.views }}"
           git push

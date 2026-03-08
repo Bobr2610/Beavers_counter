@@ -1,4 +1,4 @@
-[![Views](https://raw.githubusercontent.com/Bobr2610/Beavers_counter/main/counter.svg)](https://github.com/Bobr2610/Beavers_counter)
+[![Views](https://raw.githubusercontent.com/Bobr2610/Beavers_counter/main/counter.png)](https://github.com/Bobr2610/Beavers_counter)
 
 # Beavers Counter
 
@@ -7,12 +7,12 @@ Visitor counter based on GitHub Traffic API (views in last 14 days).
 ## Setup
 
 1. Add secret **`TRAFFIC_TOKEN`** — [Personal Access Token](https://github.com/settings/tokens) with `repo` scope.
-2. Workflow runs hourly and updates `counter.svg`.
+2. Workflow runs hourly and updates `counter.svg` and `counter.png`.
 
 ## Use in README
 
 ```markdown
-[![Views](https://raw.githubusercontent.com/Bobr2610/Beavers_counter/main/counter.svg)](https://github.com/Bobr2610/Beavers_counter)
+[![Views](https://raw.githubusercontent.com/Bobr2610/Beavers_counter/main/counter.png)](https://github.com/Bobr2610/Beavers_counter)
 ```
 
 ---
