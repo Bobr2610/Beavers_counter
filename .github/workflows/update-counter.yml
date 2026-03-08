@@ -2,7 +2,7 @@ name: Update Visitor Counter
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
     paths-ignore:
       - counter.png
       - theme/
@@ -49,13 +49,15 @@ jobs:
           files=$(echo $digits | sed 's/\(.\)/theme\/\1.png /g')
           convert $files -resize 80x80 +append counter.png
 
-      - name: Update README cache-bust
+      - name: Update README badge (auto-detect repo and cache-bust)
         id: cachebust
         run: |
           TS=$(date +%s)
           echo "ts=$TS" >> $GITHUB_OUTPUT
-          # Update badge link (only this repo's URL, not example templates)
-          sed -i -E "s|(raw\.githubusercontent\.com/${{ github.repository }}/main/counter\.png)(\?v=[0-9]+)?|\1?v=$TS|g" README.md
+          BRANCH="${{ github.ref_name }}"
+          REPO="${{ github.repository }}"
+          # Replace any badge URL with current repo/branch — works when forked
+          sed -i -E "s|\[!\[Views\]\(https://raw\.githubusercontent\.com/[^/]+/[^/]+/[^/]+/counter\.png)(\?v=[0-9]+)?\)\]\(https://github\.com/[^/]+/[^/]+\)|[![Views](https://raw.githubusercontent.com/${REPO}/${BRANCH}/counter.png?v=${TS})](https://github.com/${REPO})|g" README.md
 
       - name: Commit and Push
         run: |

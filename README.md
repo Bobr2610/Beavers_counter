@@ -2,7 +2,7 @@
 
 # Views Counter with custom images
 
-Counts visits over the last 14 days via API
+Counts visits over the last 14 days vith API
 
 ---
 
@@ -33,13 +33,13 @@ Clone or download and add to your repository:
 
 ### 4. Add the badge to README
 
-Insert into your repository's README (replace `OWNER` and `REPO` with yours):
+Insert this line into your README (or keep the one that comes with the repo):
 
 ```markdown
 [![Views](https://raw.githubusercontent.com/OWNER/REPO/main/counter.png?v=0)](https://github.com/OWNER/REPO)
 ```
 
-The `?v=0` parameter is the initial value. **Important:** the workflow automatically updates the image link on each run (changes `?v=` to a timestamp) so the browser and CDN don't show a cached image. Do not remove or hardcode `?v=` manually — the link must change.
+**Autonomous:** On the first run, the workflow automatically replaces `OWNER/REPO` and the branch with your repository — no manual editing needed. It also updates `?v=` to a timestamp on each run to avoid cache.
 
 ### 5. Running
 
@@ -57,7 +57,7 @@ The `?v=0` parameter is the initial value. **Important:** the workflow automatic
 ## Configuration
 
 1. Add the **`TRAFFIC_TOKEN`** secret — [Personal Access Token](https://github.com/settings/tokens) with `repo` permission
-2. The workflow updates `counter.png` and the link in README (the `?v=` parameter) every hour and on push — so the image is always up to date
+2. The workflow is **fully autonomous**: it detects the current repository and branch, updates the badge URL automatically (works when forked), and refreshes `counter.png` every hour and on push
 
 ---
 
