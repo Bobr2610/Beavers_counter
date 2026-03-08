@@ -8,15 +8,8 @@ on:
       - 'counter.txt'
       - 'counter.png'
   schedule:
-    - cron: '*/5 * * * *'   # every 5 min (GitHub minimum)
+    - cron: '0 * * * *'   # every hour (traffic updates hourly)
   workflow_dispatch:
-    inputs:
-      count:
-        description: 'Set count (leave empty to increment)'
-        required: false
-        type: string
-  repository_dispatch:
-    types: [page_view]
 
 jobs:
   update:
@@ -29,34 +22,30 @@ jobs:
           ref: main
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Read count
-        id: read
+      - name: Fetch traffic from GitHub API
+        id: traffic
         run: |
-          n=0
-          if [ -f counter.json ]; then
-            n=$(grep -o '"count": *[0-9]*' counter.json | grep -o '[0-9]*' || echo 0)
-          fi
-          echo "count=${n:-0}" >> $GITHUB_OUTPUT
-
-      - name: Update count
-        id: set
-        run: |
-          if [ "${{ github.event_name }}" = "push" ]; then
-            n=${{ steps.read.outputs.count }}
-          elif [ -n "${{ github.event.inputs.count }}" ]; then
-            n=${{ github.event.inputs.count }}
+          REPO="${{ github.repository }}"
+          RESP=$(curl -sS -w "\n%{http_code}" -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${REPO}/traffic/views?per=day") || true
+          HTTP=$(echo "$RESP" | tail -1)
+          BODY=$(echo "$RESP" | sed '$d')
+          if [ "$HTTP" = "200" ] && echo "$BODY" | grep -q '"count"'; then
+            n=$(echo "$BODY" | grep -o '"count": *[0-9]*' | head -1 | grep -o '[0-9]*')
           else
-            c=${{ steps.read.outputs.count }}
-            n=$((${c:-0} + 1))
+            n=$(grep -o '"count": *[0-9]*' counter.json 2>/dev/null | grep -o '[0-9]*' || echo 0)
           fi
+          n=${n:-0}
           echo "count=$n" >> $GITHUB_OUTPUT
+
+      - name: Save and generate badge
+        run: |
+          n=${{ steps.traffic.outputs.count }}
           echo "$n" > counter.txt
           echo "{\"count\": $n}" > counter.json
-
-      - name: Generate badge
-        run: |
           sudo apt-get update -qq && sudo apt-get install -y imagemagick
-          n=${{ steps.set.outputs.count }}
           files=$(printf "%07d" $n | sed 's/\(.\)/theme\/\1.png /g')
           convert $files -resize 80x80 +append counter.png
 
@@ -65,5 +54,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add counter.json counter.txt counter.png
-          git diff --staged --quiet || git commit -m "views: ${{ steps.set.outputs.count }}"
+          git diff --staged --quiet || git commit -m "views: ${{ steps.traffic.outputs.count }}"
           git push

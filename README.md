@@ -4,13 +4,17 @@
 
 View counter for GitHub READMEs with **custom beaver images** from `theme/`.
 
-> **Static badge above** updates every 5 minutes or when you run the workflow. For **increment on each view**, use Option 1 (Worker) or Option 2 (Moe-Counter).
+Uses [GitHub Traffic API](https://docs.github.com/en/rest/metrics/traffic) — shows **actual repository views** (last 14 days). Updates hourly.
 
-Custom images + view tracking
+## Usage
 
-Deploy the Cloudflare Worker from `worker/` — increments on each page view, uses your images. See [worker/README.md](worker/README.md).
-
-After deploy, use your Worker URL:
 ```markdown
-[![Views](https://beavers-counter.YOUR_ACCOUNT.workers.dev/)](https://github.com/Bobr2610/Beavers_counter)
+[![Views](https://raw.githubusercontent.com/Bobr2610/Beavers_counter/main/counter.png)](https://github.com/Bobr2610/Beavers_counter)
 ```
+
+Replace `Bobr2610` and `Beavers_counter` with your repo. The counter shows traffic for **this** repo (where the workflow runs).
+
+## Other options
+
+- **Worker** (`worker/`) — increment on each view, your images
+- **Moe-Counter** — `https://count.getloli.com/get/@ID?theme=moebooru` — no deploy, preset themes
