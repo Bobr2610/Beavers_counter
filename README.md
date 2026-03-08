@@ -1,6 +1,6 @@
 [![Views](https://raw.githubusercontent.com/Bobr2610/Beavers_counter/main/counter.png?v=1772972781)](https://github.com/Bobr2610/Beavers_counter)
 
-# Vievs Counter vith cosrum images
+# Views Counter with custom images
 
 Counts visits over the last 14 days via API
 
