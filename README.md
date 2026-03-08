@@ -1,24 +1,18 @@
-[![Hits](https://hits.sh/github.com/Bobr2610/Beavers_counter.svg?label=views)](https://hits.sh/github.com/Bobr2610/Beavers_counter/)
+[![Views](https://github.com/Bobr2610/Beavers_counter/raw/main/counter.png)](https://github.com/Bobr2610/Beavers_counter)
 
 # Beavers Counter
 
-View counter badge for GitHub. Increments on each page view.
+View counter badge with beaver images for GitHub.
 
 ## Embed in your README
 
-**Option A — auto-increment on each view** (uses [hits.sh](https://hits.sh)):
-
-```markdown
-[![Hits](https://hits.sh/github.com/YOUR_USERNAME/YOUR_REPO.svg?label=views)](https://hits.sh/github.com/YOUR_USERNAME/YOUR_REPO/)
-```
-
-Replace `YOUR_USERNAME` and `YOUR_REPO` with your GitHub username and repository name.
-
-**Option B — beaver images** (requires manual trigger or workflow from another repo):
+**Beaver counter** (images from `theme/`):
 
 ```markdown
 [![Views](https://github.com/Bobr2610/Beavers_counter/raw/main/counter.png)](https://github.com/Bobr2610/Beavers_counter)
 ```
+
+To increment: run **Actions** → **View Counter** → **Run workflow**, or trigger from another repo (see below).
 
 ## Increment from another repo
 
