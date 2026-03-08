@@ -1,3 +1,7 @@
+[![Посещений](https://raw.githubusercontent.com/YOUR_USERNAME/Beavers_counter/main/views.svg)](https://github.com/YOUR_USERNAME/Beavers_counter)
+
+*Замените `YOUR_USERNAME` на свой логин GitHub — тогда отобразится актуальное число.*
+
 # GitHub View Counter
 
 A small repository that stores a view count and exposes an SVG badge. Use it from **any other repository** by embedding the badge and optionally triggering increments (e.g. on page views or README visits).
