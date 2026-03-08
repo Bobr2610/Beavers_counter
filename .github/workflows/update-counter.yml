@@ -6,7 +6,6 @@ on:
     paths-ignore:
       - counter.png
       - theme/
-      - '*.md'
   schedule:
     - cron: '0 * * * *'  # Запуск каждый час
   workflow_dispatch:     # Позволяет запустить вручную
