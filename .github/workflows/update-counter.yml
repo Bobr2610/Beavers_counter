@@ -51,13 +51,26 @@ jobs:
 
       - name: Update README badge (auto-detect repo and cache-bust)
         id: cachebust
+        env:
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.ref_name }}
         run: |
           TS=$(date +%s)
           echo "ts=$TS" >> $GITHUB_OUTPUT
-          BRANCH="${{ github.ref_name }}"
-          REPO="${{ github.repository }}"
-          # Replace any badge URL with current repo/branch — works when forked
-          sed -i -E "s|\[!\[Views\]\(https://raw\.githubusercontent\.com/[^/]+/[^/]+/[^/]+/counter\.png)(\?v=[0-9]+)?\)\]\(https://github\.com/[^/]+/[^/]+\)|[![Views](https://raw.githubusercontent.com/${REPO}/${BRANCH}/counter.png?v=${TS})](https://github.com/${REPO})|g" README.md
+          export TS
+          python3 << 'PYEOF'
+          import re, os
+          with open('README.md') as f:
+            content = f.read()
+          repo = os.environ['REPO']
+          branch = os.environ['BRANCH']
+          ts = os.environ['TS']
+          pattern = r'\[!\[Views\]\(https://raw\.githubusercontent\.com/[^/]+/[^/]+/[^/]+/counter\.png(\?v=[0-9]+)?\)\]\(https://github\.com/[^/]+/[^/]+\)'
+          replacement = f'[![Views](https://raw.githubusercontent.com/{repo}/{branch}/counter.png?v={ts})](https://github.com/{repo})'
+          content = re.sub(pattern, replacement, content)
+          with open('README.md', 'w') as f:
+            f.write(content)
+          PYEOF
 
       - name: Commit and Push
         run: |
