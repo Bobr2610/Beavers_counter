@@ -36,12 +36,14 @@ export default {
     const repo = url.searchParams.get('repo') || REPO;
     const themeBase = repo === REPO ? THEME_BASE : `https://raw.githubusercontent.com/${repo}/main/theme`;
 
+    const id = url.searchParams.get('id') || 'default';
+    const key = `count:${id}`;
     let count = 0;
     if (env.COUNTER) {
       try {
-        const val = await env.COUNTER.get('count');
+        const val = await env.COUNTER.get(key);
         count = parseInt(val || '0', 10) + 1;
-        await env.COUNTER.put('count', String(count));
+        await env.COUNTER.put(key, String(count));
       } catch (_) {
         count = 1;
       }

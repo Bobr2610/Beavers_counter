@@ -2,19 +2,18 @@
 
 # Beavers Counter
 
-View counter for GitHub READMEs with **custom beaver images** from `theme/`.
+View counter with custom beaver images. Use in any repo.
 
-Uses [GitHub Traffic API](https://docs.github.com/en/rest/metrics/traffic) — shows **actual repository views** (last 14 days). Updates hourly.
+## Use in another repo
 
-## Usage
+**1. Add to README** (one line):
 
 ```markdown
 [![Views](https://raw.githubusercontent.com/Bobr2610/Beavers_counter/main/counter.png)](https://github.com/Bobr2610/Beavers_counter)
 ```
 
-Replace `Bobr2610` and `Beavers_counter` with your repo. The counter shows traffic for **this** repo (where the workflow runs).
+**2. (Optional) Increment on push** — copy [views.yml.example](views.yml.example) to `.github/workflows/views.yml`, add secret `COUNTER_PAT` (PAT with `repo` scope).
 
-## Other options
+---
 
-- **Worker** (`worker/`) — increment on each view, your images
-- **Moe-Counter** — `https://count.getloli.com/get/@ID?theme=moebooru` — no deploy, preset themes
+*Shared counter for all repos. For per-repo counters with view tracking, deploy the Worker from `worker/` and use `?id=your-repo-name`.*

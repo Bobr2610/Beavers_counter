@@ -28,9 +28,10 @@ Increments on each README view. Uses your images from `theme/` (0.png–9.png).
    wrangler deploy
    ```
 
-5. Use the Worker URL in README:
+5. Use in README. Add `?id=unique-id` for per-repo counters:
    ```markdown
-   [![Views](https://beavers-counter.YOUR_ACCOUNT.workers.dev/)](https://github.com/Bobr2610/Beavers_counter)
+   [![Views](https://beavers-counter.YOUR_ACCOUNT.workers.dev/?id=my-repo)](https://github.com/Bobr2610/Beavers_counter)
    ```
+   Each `id` has its own counter. Omit for shared counter.
 
 Free tier: 100,000 requests/day.
