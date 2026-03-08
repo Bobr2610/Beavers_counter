@@ -1,4 +1,4 @@
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FBobr2610%2FBeavers_counter&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)
+[![Hits](https://hits.sh/github.com/Bobr2610/Beavers_counter.svg?label=views)](https://hits.sh/github.com/Bobr2610/Beavers_counter/)
 
 # Beavers Counter
 
@@ -6,13 +6,13 @@ View counter badge for GitHub. Increments on each page view.
 
 ## Embed in your README
 
-**Option A — auto-increment on each view** (uses [hits.seeyoufarm.com](https://hits.seeyoufarm.com)):
+**Option A — auto-increment on each view** (uses [hits.sh](https://hits.sh)):
 
 ```markdown
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FYOUR_USERNAME%2FYOUR_REPO&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)
+[![Hits](https://hits.sh/github.com/YOUR_USERNAME/YOUR_REPO.svg?label=views)](https://hits.sh/github.com/YOUR_USERNAME/YOUR_REPO/)
 ```
 
-Replace `YOUR_USERNAME` and `YOUR_REPO` in the `url` parameter (URL-encoded, e.g. `%2F` = `/`).
+Replace `YOUR_USERNAME` and `YOUR_REPO` with your GitHub username and repository name.
 
 **Option B — beaver images** (requires manual trigger or workflow from another repo):
 
