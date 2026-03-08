@@ -1,4 +1,4 @@
-[![Views](https://raw.githubusercontent.com/Bobr2610/Beavers_counter/main/counter.png?v=0)](https://github.com/Bobr2610/Beavers_counter)
+[![Views](https://raw.githubusercontent.com/Bobr2610/Beavers_counter/main/counter.png?v=1772972781)](https://github.com/Bobr2610/Beavers_counter)
 
 # Beavers Counter
 
