@@ -1,12 +1,12 @@
 [![Views](https://raw.githubusercontent.com/Bobr2610/Beavers_counter/main/counter.png?v=0)](https://github.com/Bobr2610/Beavers_counter)
 
-# Beavers Counter
+# Бобринный счетчик
 
-Visitor counter based on GitHub Traffic API (views in last 14 days).
+Считает посещения за последние 14 дней через API
 
 ---
 
-## Как пользоваться (How to use)
+## Как пользоваться
 
 ### 1. Скопируйте файлы в свой репозиторий
 
@@ -54,7 +54,7 @@ Visitor counter based on GitHub Traffic API (views in last 14 days).
 
 ---
 
-## Setup (this repo)
+## Настройка
 
 1. Добавьте секрет **`TRAFFIC_TOKEN`** — [Personal Access Token](https://github.com/settings/tokens) с правом `repo`
 2. Workflow обновляет `counter.png` и ссылку в README (параметр `?v=`) каждый час и при push — так изображение всегда актуальное
