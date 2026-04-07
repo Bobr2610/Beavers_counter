@@ -8,7 +8,7 @@ on:
       - theme/
       - README.md
   schedule:
-    - cron: '0 * * * *'  # Запуск каждый час
+    - cron: '0 0,12 * * *'  # Twice a day
   workflow_dispatch:     # Позволяет запустить вручную
 
 jobs:
@@ -57,7 +57,7 @@ jobs:
         run: |
           TS=$(date +%s)
           echo "ts=$TS" >> $GITHUB_OUTPUT
-          export TS REPO BRANCH
+          export TS
           python3 << 'PYEOF'
           import re, os
           with open('README.md') as f:
@@ -65,13 +65,11 @@ jobs:
           repo = os.environ['REPO']
           branch = os.environ['BRANCH']
           ts = os.environ['TS']
-          new_url = f'https://raw.githubusercontent.com/{repo}/{branch}/counter.png?v={ts}'
-          replacement = f'[![Views]({new_url})](https://github.com/{repo})'
-          pattern = r'\[!\[Views\]\(https://raw\.githubusercontent\.com/[^)]+counter\.png[^)]*\)\]\(https://github\.com/[^)]+\)'
+          pattern = r'\[!\[Views\]\(https://raw\.githubusercontent\.com/[^/]+/[^/]+/[^/]+/counter\.png(\?v=[0-9]+)?\)\]\(https://github\.com/[^/]+/[^/]+\)'
+          replacement = f'[![Views](https://raw.githubusercontent.com/{repo}/{branch}/counter.png?v={ts})](https://github.com/{repo})'
           content = re.sub(pattern, replacement, content)
           with open('README.md', 'w') as f:
             f.write(content)
-          print(f"Badge URL: ?v={ts}")
           PYEOF
 
       - name: Commit and Push
