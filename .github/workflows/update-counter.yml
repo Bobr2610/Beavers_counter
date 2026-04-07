@@ -8,7 +8,7 @@ on:
       - theme/
       - README.md
   schedule:
-    - cron: '0 0,12 * * *'  # Twice a day
+    - cron: '0 0,12 * * *'  # Два раза в день
   workflow_dispatch:     # Позволяет запустить вручную
 
 jobs:
@@ -57,19 +57,30 @@ jobs:
         run: |
           TS=$(date +%s)
           echo "ts=$TS" >> $GITHUB_OUTPUT
-          export TS
+          export TS REPO BRANCH
           python3 << 'PYEOF'
           import re, os
-          with open('README.md') as f:
-            content = f.read()
           repo = os.environ['REPO']
           branch = os.environ['BRANCH']
-          ts = os.environ['TS']
-          pattern = r'\[!\[Views\]\(https://raw\.githubusercontent\.com/[^/]+/[^/]+/[^/]+/counter\.png(\?v=[0-9]+)?\)\]\(https://github\.com/[^/]+/[^/]+\)'
-          replacement = f'[![Views](https://raw.githubusercontent.com/{repo}/{branch}/counter.png?v={ts})](https://github.com/{repo})'
-          content = re.sub(pattern, replacement, content)
+          ts = os.environ.get('TS', '0')
+          new_url = f'https://raw.githubusercontent.com/{repo}/{branch}/counter.png?v={ts}'
+          badge = f'[![Views]({new_url})](https://github.com/{repo})'
+          with open('README.md') as f:
+            content = f.read()
+          # Match badge: [![Views](URL)](link) - any raw URL with counter.png
+          pattern = r'\[!\[Views\]\(https://raw\.githubusercontent\.com/[^)]+counter\.png[^)]*\)\]\(https://github\.com/[^)]+\)'
+          new_content = re.sub(pattern, badge, content)
+          # Fallback: replace only the counter.png URL part (repo+branch+v) for cache bust
+          if new_content == content:
+            new_content = re.sub(
+              r'https://raw\.githubusercontent\.com/[^/]+/[^/]+/[^/]+/counter\.png(\?v=[0-9]+)?',
+              new_url,
+              content
+            )
+          content = new_content
           with open('README.md', 'w') as f:
             f.write(content)
+          print(f"Badge URL updated: ?v={ts}")
           PYEOF
 
       - name: Commit and Push
